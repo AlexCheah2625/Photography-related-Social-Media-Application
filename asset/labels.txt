@@ -1,0 +1,4 @@
+0 Landscape
+1 Street
+2 Portrait
+3 Sport

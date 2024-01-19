@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638391834995",
+    "project_id": "xenon-b15b7",
+    "storage_bucket": "xenon-b15b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638391834995:android:09698d8d59e6ffde84cd06",
+        "android_client_info": {
+          "package_name": "com.example.practice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj85F9kFnIrGVqwbRQ9E8d3MbIaS2_d94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
