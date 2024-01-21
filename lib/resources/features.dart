@@ -31,7 +31,7 @@ class Features {
   ) async {
     String result = "some error occured";
     try {
-      _loadModel();
+      loadModel();
       String category = await classifyImage(file, cate);
 
       String photoUrl =
@@ -265,8 +265,9 @@ Future<String> classifyImage(Uint8List image, int category) async {
   }
 }
 
-Future<void> _loadModel() async {
-  String? res = await Tflite.loadModel(
+loadModel() async {
+  Tflite.close();
+  Tflite.loadModel(
       model: "asset/model_unquant.tflite",
       labels: "asset/labels.txt",
       numThreads: 1, // defaults to 1

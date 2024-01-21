@@ -29,6 +29,7 @@ class _CommmentState extends State<Commment> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.thirdcolor,
+        iconTheme: IconThemeData(color: Palette.thirdcolor),
         title: const Text(
           "Comment",
           style: TextStyle(

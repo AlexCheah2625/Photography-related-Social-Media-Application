@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:practice/Login%20and%20Signup/login.dart';
 import 'package:practice/Screens/discoverp2.dart';
 import 'package:practice/Screens/edit_profile.dart';
+import 'package:practice/Screens/follower_user.dart';
+import 'package:practice/Screens/following_user.dart';
 import 'package:practice/Widgets/follow_button.dart';
 import 'package:practice/color.dart';
 import 'package:practice/resources/auth.dart';
@@ -181,14 +183,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     Column(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Follower",
-                                            style: TextStyle(
-                                                color: Palette.postcolor,
-                                                fontFamily: "Ale",
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FollowerScreen(uid: userdata['uid'],),
+                                            ));
+                                          },
+                                          child: Container(
+                                            child: Text(
+                                              "Follower",
+                                              style: TextStyle(
+                                                  color: Palette.postcolor,
+                                                  fontFamily: "Ale",
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
                                           ),
                                         ),
                                         Container(
@@ -205,14 +216,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     Column(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Following",
-                                            style: TextStyle(
-                                                color: Palette.postcolor,
-                                                fontFamily: "Ale",
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FollowingScreen(uid: userdata['uid'],),
+                                            ));
+                                          },
+                                          child: Container(
+                                            child: Text(
+                                              "Following",
+                                              style: TextStyle(
+                                                  color: Palette.postcolor,
+                                                  fontFamily: "Ale",
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
                                           ),
                                         ),
                                         Container(
