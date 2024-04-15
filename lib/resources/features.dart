@@ -31,7 +31,7 @@ class Features {
   ) async {
     String result = "some error occured";
     try {
-      loadModel();
+      // _loadModel();
       String category = await classifyImage(file, cate);
 
       String photoUrl =
@@ -231,6 +231,17 @@ class Features {
 
 Future<String> classifyImage(Uint8List image, int category) async {
   try {
+    Tflite.close();
+    String? res = await Tflite.loadModel(
+        model: "asset/model_unquant.tflite",
+        labels: "asset/labels.txt",
+        numThreads: 1, // defaults to 1
+        isAsset:
+            true, // defaults to true, set to false to load resources outside assets
+        useGpuDelegate:
+            false // defaults to false, set to true to use GPU delegate
+        );
+
     // Save the image to a temporary file
     Directory tempDir = await getTemporaryDirectory();
     File tempFile = File('${tempDir.path}/temp_image.jpg');
@@ -243,8 +254,8 @@ Future<String> classifyImage(Uint8List image, int category) async {
       path: filePath,
       imageMean: 0.0,
       imageStd: 255.0,
-      numResults: 2,
-      threshold: 0.2,
+      numResults: 1,
+      threshold: 0.9,
       asynch: true,
     );
 
@@ -256,24 +267,12 @@ Future<String> classifyImage(Uint8List image, int category) async {
       print('Numeric Part: $category');
       return category;
     } else {
-      print('Error: Empty or null output from TFLite.');
-      return 'Error';
+      String category = '4';
+      print('Image cannot be classify');
+      return category;
     }
   } catch (e) {
     print('Error in classifyImage: $e');
     return 'Error';
   }
-}
-
-loadModel() async {
-  Tflite.close();
-  Tflite.loadModel(
-      model: "asset/model_unquant.tflite",
-      labels: "asset/labels.txt",
-      numThreads: 1, // defaults to 1
-      isAsset:
-          true, // defaults to true, set to false to load resources outside assets
-      useGpuDelegate:
-          false // defaults to false, set to true to use GPU delegate
-      );
 }

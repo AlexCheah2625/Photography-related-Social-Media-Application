@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice/Screens/chatting_page.dart';
 import '../color.dart';
 import '../resources/features.dart';
 import 'package:practice/resources/features.dart';
@@ -11,15 +12,15 @@ import '../utils/utils.dart';
 import 'follow_button.dart';
 import 'follow_button1.dart';
 
-class UserCard extends StatefulWidget {
+class ChatUserCard extends StatefulWidget {
   final String uid;
-  const UserCard({Key? key, required this.uid}) : super(key: key);
+  const ChatUserCard({Key? key, required this.uid}) : super(key: key);
 
   @override
-  State<UserCard> createState() => _UserCardState();
+  State<ChatUserCard> createState() => _ChatUserCardState();
 }
 
-class _UserCardState extends State<UserCard> {
+class _ChatUserCardState extends State<ChatUserCard> {
   bool isFollowing = false;
   bool loading = false;
   var userdata = {};
@@ -98,7 +99,7 @@ class _UserCardState extends State<UserCard> {
                           child: TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProfileScreen(
+                                builder: (context) => Chatting(
                                   uid: userdata['uid'],
                                 ),
                               ));
@@ -113,39 +114,6 @@ class _UserCardState extends State<UserCard> {
                             ),
                           ),
                         ),
-                        isFollowing
-                            ? FollowButton1(
-                                backgroundColor:
-                                    Color.fromARGB(255, 126, 137, 141),
-                                borderColor: Palette.postcolor,
-                                text: "Unfollow",
-                                textColor: Palette.postcolor,
-                                function: () async {
-                                  await Features().followUser(
-                                    FirebaseAuth.instance.currentUser!.uid,
-                                    userdata['uid'],
-                                  );
-
-                                  setState(() {
-                                    isFollowing = false;
-                                    follower--;
-                                  });
-                                })
-                            : FollowButton1(
-                                backgroundColor:
-                                    Color.fromARGB(255, 0, 144, 201),
-                                borderColor: Palette.postcolor,
-                                text: "Follow",
-                                textColor: Palette.postcolor,
-                                function: () async {
-                                  await Features().followUser(
-                                      FirebaseAuth.instance.currentUser!.uid,
-                                      userdata['uid']);
-                                  setState(() {
-                                    isFollowing = true;
-                                    follower++;
-                                  });
-                                }),
                       ],
                     ),
                   ],

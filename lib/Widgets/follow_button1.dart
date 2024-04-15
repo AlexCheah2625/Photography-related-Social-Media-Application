@@ -30,7 +30,7 @@ class FollowButton1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           alignment: Alignment.center,
-          width: 100,
+          width: 90,
           height: 27,
           child: Text(
             text,

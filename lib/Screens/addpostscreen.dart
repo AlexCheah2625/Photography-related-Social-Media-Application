@@ -104,7 +104,7 @@ class _AddPostState extends State<AddPost> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final Users user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -179,7 +179,7 @@ class _AddPostState extends State<AddPost> {
                     color: Color.fromARGB(255, 194, 194, 194),
                   ),
                 ),
-                height: 300,
+                height: 365,
                 child: Stack(
                   children: [
                     _postimage != null
@@ -191,7 +191,7 @@ class _AddPostState extends State<AddPost> {
                             visible: buttonvisible,
                             child: Positioned(
                               left: 150,
-                              top: 100,
+                              top: 170,
                               child: TextButton(
                                 child: Text(
                                   "Select Photo",

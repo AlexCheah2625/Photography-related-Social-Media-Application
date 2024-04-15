@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practice/Screens/profile.dart';
+import 'package:practice/Screens/search_posts.dart';
 import 'package:practice/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -50,29 +51,47 @@ class _DiscoverState extends State<Discover> {
         appBar: AppBar(
           backgroundColor: Color(0xFF213037),
           title: Container(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.035,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Search Users',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  filled: true,
-                  fillColor: Color(0xFF2B414A),
-                  labelStyle: TextStyle(
-                    color: Palette.postcolor,
-                    fontFamily: 'Ale',
+            child: Row(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Search Users',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      filled: true,
+                      fillColor: Color(0xFF2B414A),
+                      labelStyle: TextStyle(
+                        color: Palette.postcolor,
+                        fontFamily: 'Ale',
+                      ),
+                    ),
+                    style: TextStyle(color: Palette.postcolor),
+                    onFieldSubmitted: (String _) {
+                      setState(() {
+                        showUser = true;
+                      });
+                    },
+                    controller: searchUser,
                   ),
                 ),
-                style: TextStyle(color: Palette.postcolor),
-                onFieldSubmitted: (String _) {
-                  setState(() {
-                    showUser = true;
-                  });
-                },
-                controller: searchUser,
-              ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.005,
+                  height: MediaQuery.of(context).size.height * 0.085,
+                ),
+                IconButton(
+                  color: Palette.postcolor,
+                  icon: Icon(Icons.image_search_sharp),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => PostSearch()),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -140,7 +159,7 @@ class _DiscoverState extends State<Discover> {
                             },
                             style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all<Size>(
-                                  Size(90.0, 10.0)),
+                                  Size(105.0, 20.0)),
                               backgroundColor:
                                   MaterialStateProperty.all(Palette.postcolor),
                               shape: MaterialStateProperty.all(
@@ -190,7 +209,7 @@ class _DiscoverState extends State<Discover> {
                             },
                             style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all<Size>(
-                                  Size(87.0, 10.0)),
+                                  Size(90.0, 10.0)),
                               backgroundColor:
                                   MaterialStateProperty.all(Palette.postcolor),
                               shape: MaterialStateProperty.all(
@@ -237,6 +256,7 @@ class _DiscoverState extends State<Discover> {
                       child: FutureBuilder(
                         future: FirebaseFirestore.instance
                             .collection('posts')
+                            .orderBy('date',descending: true)
                             .get(),
                         builder: ((context, snapshot) {
                           if (!snapshot.hasData) {

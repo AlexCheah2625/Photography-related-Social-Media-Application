@@ -51,7 +51,7 @@ class _potraitState extends State<potrait> {
                       },
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
+                            MaterialStateProperty.all<Size>(Size(105.0, 20.0)),
                         backgroundColor:
                             MaterialStateProperty.all(Palette.postcolor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -73,7 +73,7 @@ class _potraitState extends State<potrait> {
                               );},
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all<Size>(Size(87.0, 10.0)),
+                            MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
                         backgroundColor:
                             MaterialStateProperty.all(Palette.postcolor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -95,7 +95,7 @@ class _potraitState extends State<potrait> {
                               );},
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all<Size>(Size(87.0, 10.0)),
+                            MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
                         backgroundColor:
                             MaterialStateProperty.all(Palette.postcolor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

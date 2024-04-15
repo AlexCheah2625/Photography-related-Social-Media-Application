@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../color.dart';
 import '../resources/features.dart';
@@ -11,15 +13,15 @@ import '../utils/utils.dart';
 import 'follow_button.dart';
 import 'follow_button1.dart';
 
-class UserCard extends StatefulWidget {
+class UserCard1 extends StatefulWidget {
   final String uid;
-  const UserCard({Key? key, required this.uid}) : super(key: key);
+  const UserCard1({Key? key, required this.uid}) : super(key: key);
 
   @override
-  State<UserCard> createState() => _UserCardState();
+  State<UserCard1> createState() => _UserCard1State();
 }
 
-class _UserCardState extends State<UserCard> {
+class _UserCard1State extends State<UserCard1> {
   bool isFollowing = false;
   bool loading = false;
   var userdata = {};
@@ -91,10 +93,11 @@ class _UserCardState extends State<UserCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
                           height: 50,
-                          margin: EdgeInsets.only(right: 110),
+                          margin: EdgeInsets.only(right: 60),
                           child: TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -128,7 +131,7 @@ class _UserCardState extends State<UserCard> {
 
                                   setState(() {
                                     isFollowing = false;
-                                    follower--;
+                                    follower = max(0, follower - 1);
                                   });
                                 })
                             : FollowButton1(

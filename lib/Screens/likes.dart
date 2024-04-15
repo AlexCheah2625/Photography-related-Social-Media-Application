@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import '../Widgets/userprofile_card.dart';
+import 'package:practice/Widgets/userprofile_card1.dart';
 import 'package:practice/resources/features.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../color.dart';
 
-class FollowerScreen extends StatefulWidget {
-  final String uid;
-  const FollowerScreen({Key? key, required this.uid}) : super(key: key);
+class Likes extends StatefulWidget {
+  final String postid;
+
+  const Likes({Key? key, required this.postid}) : super(key: key);
 
   @override
-  State<FollowerScreen> createState() => _FollowerScreenState();
+  State<Likes> createState() => _LikesState();
 }
 
-class _FollowerScreenState extends State<FollowerScreen> {
+class _LikesState extends State<Likes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Palette.postcolor),
           backgroundColor: Palette.thirdcolor,
+          iconTheme: IconThemeData(color: Palette.postcolor),
           title: const Text(
-            "Follower",
+            "Likes",
             style: TextStyle(
               color: Palette.postcolor,
               fontFamily: 'Ale',
@@ -32,24 +33,26 @@ class _FollowerScreenState extends State<FollowerScreen> {
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(widget.uid)
+                .collection('posts')
+                .doc(widget.postid)
                 .snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              var followingList = (snapshot.data as dynamic)['follower'];
+
+              var likeList = (snapshot.data as dynamic)['likes'];
 
               return ListView.builder(
-                  itemCount: followingList.length,
+                  itemCount: likeList.length,
                   itemBuilder: (context, index) {
                     return FutureBuilder(
                         future: FirebaseFirestore.instance
                             .collection("users")
-                            .doc(followingList[index])
+                            .doc(likeList[index])
                             .get(),
                         builder: (context, userSnapshot) {
                           if (userSnapshot.connectionState ==
@@ -61,7 +64,7 @@ class _FollowerScreenState extends State<FollowerScreen> {
 
                           var userData = userSnapshot.data as dynamic;
 
-                          return UserCard(uid: userData['uid']);
+                          return UserCard1(uid: userData['uid']);
                         });
                   });
             }));

@@ -25,11 +25,11 @@ class _CommmentState extends State<Commment> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final Users user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.thirdcolor,
-        iconTheme: IconThemeData(color: Palette.thirdcolor),
+        iconTheme: IconThemeData(color: Palette.postcolor),
         title: const Text(
           "Comment",
           style: TextStyle(

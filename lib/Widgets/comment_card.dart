@@ -19,9 +19,8 @@ class CommentCard extends StatefulWidget {
 class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final Users user = Provider.of<UserProvider>(context).getUser;
     return Container(
-        height: 70,
         decoration: BoxDecoration(
             color: Palette.thirdcolor,
             border: Border.all(
@@ -53,7 +52,7 @@ class _CommentCardState extends State<CommentCard> {
                     Row(
                       children: [
                         Container(
-                          height: 30,
+                          height: 35,
                           child: TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -89,7 +88,7 @@ class _CommentCardState extends State<CommentCard> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.only(left: 10, bottom: 10),
                       child: ListView(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -99,7 +98,7 @@ class _CommentCardState extends State<CommentCard> {
                             style: TextStyle(
                               color: Palette.postcolor,
                               fontFamily: 'Ale',
-                              fontSize: 13,
+                              fontSize: 16,
                             ),
                             expandText: 'Show more',
                             collapseText: 'Show less',

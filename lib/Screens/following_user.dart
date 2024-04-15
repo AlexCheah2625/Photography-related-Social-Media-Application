@@ -18,6 +18,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Palette.thirdcolor,
+          iconTheme: IconThemeData(color: Palette.postcolor),
           title: const Text(
             "Following",
             style: TextStyle(

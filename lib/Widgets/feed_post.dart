@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Screens/comment_sections.dart';
+import 'package:practice/Screens/likes.dart';
 import 'package:practice/color.dart';
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
@@ -35,26 +36,41 @@ class _PostState extends State<Post> {
     calRatio();
   }
 
+  @override
+  void dispose() {
+    calRatio();
+    super.dispose();
+  }
+
   Future<void> calRatio() async {
     String imageURL = widget.snap['postUrl'].toString();
-    final res = await http.get(Uri.parse(imageURL));
 
-    if (res.statusCode == 200) {
-      Uint8List imageSize = res.bodyBytes;
-      img.Image? image = img.decodeImage(imageSize);
-      double? aspectRatio1 = image?.width.toDouble();
-      double? aspectRatio2 = image?.height.toDouble();
-      if (aspectRatio1 != null && aspectRatio2 != null && aspectRatio2 != 0) {
-        setState(() {
-          aspectRatio = aspectRatio1 / aspectRatio2;
-        });
+    try {
+      final res = await http.get(Uri.parse(imageURL));
+
+      if (res.statusCode == 200) {
+        Uint8List imageSize = res.bodyBytes;
+        img.Image? image = img.decodeImage(imageSize);
+        double? aspectRatio1 = image?.width.toDouble();
+        double? aspectRatio2 = image?.height.toDouble();
+
+        if (mounted &&
+            aspectRatio1 != null &&
+            aspectRatio2 != null &&
+            aspectRatio2 != 0) {
+          setState(() {
+            aspectRatio = aspectRatio1 / aspectRatio2;
+          });
+        }
       }
+    } catch (e) {
+      // Handle any potential errors here.
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final Users user = Provider.of<UserProvider>(context).getUser;
     final bool isCurrentUserPost = user.uid == widget.snap['uid'];
     return Container(
       padding: EdgeInsets.symmetric(
@@ -112,7 +128,7 @@ class _PostState extends State<Post> {
                             context: context,
                             builder: (context) => Dialog(
                                   child: Container(
-                                      height: 320,
+                                      height: 350,
                                       child: Column(
                                         children: [
                                           Container(
@@ -204,33 +220,61 @@ class _PostState extends State<Post> {
                                                         10), // Adjust the horizontal margin
                                               ),
                                               if (isCurrentUserPost)
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: TextButton.icon(
-                                                    onPressed: () {
-                                                      Features().deletePost(
-                                                          widget
-                                                              .snap['postID']);
-
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.delete,
-                                                      color:
-                                                          Palette.secondcolor,
-                                                    ),
-                                                    label: Text(
-                                                      'Delete Post',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Palette.secondcolor,
-                                                        fontFamily: 'Ale',
-                                                        fontSize: 18,
+                                                 Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: TextButton.icon(
+                                                            onPressed: () {
+                                                              Features().deletePost(
+                                                                  widget.snap[
+                                                                      'postID']);
+                                                        
+                                                              Navigator.of(context)
+                                                                  .pop();
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.delete,
+                                                              color: Palette
+                                                                  .secondcolor,
+                                                            ),
+                                                            label: Text(
+                                                              'Delete Post',
+                                                              style: TextStyle(
+                                                                color: Palette
+                                                                    .secondcolor,
+                                                                fontFamily: 'Ale',
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: TextButton.icon(
+                                                        onPressed: () {
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.edit_sharp,
+                                                          color: Palette
+                                                              .secondcolor,
+                                                        ),
+                                                        label: Text(
+                                                          'Edit Post',
+                                                          style: TextStyle(
+                                                            color: Palette
+                                                                .secondcolor,
+                                                            fontFamily: 'Ale',
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
+                                                      ],
+                                                    ),
                                             ],
                                           ))
                                         ],
@@ -304,13 +348,20 @@ class _PostState extends State<Post> {
                 Container(
                   padding: EdgeInsets.all(5.0),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${widget.snap['likes'].length} Likes',
-                    style: TextStyle(
-                        color: Palette.thirdcolor,
-                        fontSize: 15,
-                        fontFamily: "Ale",
-                        fontWeight: FontWeight.w500),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              Likes(postid: widget.snap['postID'])));
+                    },
+                    child: Text(
+                      '${widget.snap['likes'].length} Likes',
+                      style: TextStyle(
+                          color: Palette.thirdcolor,
+                          fontSize: 15,
+                          fontFamily: "Ale",
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
                 Expanded(

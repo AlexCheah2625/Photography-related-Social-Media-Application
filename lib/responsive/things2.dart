@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice/Screens/chat_page.dart';
 import 'package:practice/Screens/homescreen.dart';
 import 'package:practice/Screens/addpostscreen.dart';
 import 'package:practice/Screens/discover.dart';
@@ -12,6 +13,8 @@ List<Widget> Screens = [
   HomeScreen(),
   Discover(),
   AddPost(),
-  Text("hiiii"),
-  ProfileScreen( uid: FirebaseAuth.instance.currentUser!.uid,),
+  Chat(),
+  ProfileScreen(
+    uid: FirebaseAuth.instance.currentUser!.uid,
+  ),
 ];

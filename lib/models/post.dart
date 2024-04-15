@@ -46,7 +46,7 @@ class Post {
         "shuttlespeed": shuttlespeed,
         "location": location
       };
-  //return user model
+  //return post model
   static Post fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 

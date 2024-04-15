@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practice/Login%20and%20Signup/login.dart';
+import 'package:practice/Screens/chatting_page.dart';
 import 'package:practice/Screens/discoverp2.dart';
 import 'package:practice/Screens/edit_profile.dart';
 import 'package:practice/Screens/follower_user.dart';
@@ -130,7 +131,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //bio
                               Container(
                                 width: 350,
-                                height: 50,
                                 margin: EdgeInsets.only(top: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,7 +188,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
                                               builder: (context) =>
-                                                  FollowerScreen(uid: userdata['uid'],),
+                                                  FollowerScreen(
+                                                uid: userdata['uid'],
+                                              ),
                                             ));
                                           },
                                           child: Container(
@@ -221,7 +223,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
                                               builder: (context) =>
-                                                  FollowingScreen(uid: userdata['uid'],),
+                                                  FollowingScreen(
+                                                uid: userdata['uid'],
+                                              ),
                                             ));
                                           },
                                           child: Container(
@@ -336,14 +340,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 borderColor: Palette.postcolor,
                                                 text: "Message",
                                                 textColor: Palette.postcolor,
-                                                function: () {})
+                                                function: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Chatting(
+                                                                  uid: userdata[
+                                                                      'uid'])));
+                                                })
                                             : FollowButton(
                                                 backgroundColor: Color.fromARGB(
                                                     255, 0, 144, 201),
                                                 borderColor: Palette.postcolor,
                                                 text: "Message",
                                                 textColor: Palette.postcolor,
-                                                function: () {}),
+                                                function: () {
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Chatting(
+                                                                  uid: userdata[
+                                                                      'uid'])));
+                                                }),
                                   ],
                                 ),
                               ),
