@@ -227,6 +227,42 @@ class Features {
       print(e.toString());
     }
   }
+
+  Future<void> editPost(String postID, String caption, String iso,
+      String apreture, String shuttlespeed, String location) async {
+    try {
+      if (caption.isNotEmpty ||
+          iso.isNotEmpty ||
+          apreture.isNotEmpty ||
+          shuttlespeed.isNotEmpty ||
+          location.isNotEmpty) {
+        Map<String, dynamic> updateFields = {};
+        if (caption.isNotEmpty) {
+          updateFields['caption'] = caption;
+        }
+        if (iso.isNotEmpty) {
+          updateFields['iso'] = iso;
+        }
+        if (apreture.isNotEmpty) {
+          updateFields['apreture'] = apreture;
+        }
+        if (shuttlespeed != null) {
+          updateFields['shuttlespeed'] = shuttlespeed;
+        }
+        if (location != null) {
+          updateFields['location'] = location;
+        }
+
+        // Update the user document in Firestore using the provided UID
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(postID)
+            .update(updateFields);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
 
 Future<String> classifyImage(Uint8List image, int category) async {

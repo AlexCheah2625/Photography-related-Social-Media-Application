@@ -2,6 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Screens/comment_sections.dart';
+import 'package:practice/Screens/edit_post.dart';
+import 'package:practice/Screens/homescreen.dart';
 import 'package:practice/Screens/likes.dart';
 import 'package:practice/color.dart';
 import 'package:image/image.dart' as img;
@@ -198,7 +200,8 @@ class _PostState extends State<Post> {
                                                   )),
                                               Container(
                                                   alignment: Alignment.center,
-                                                  margin: EdgeInsets.all(10.0),
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 10.0, top: 0),
                                                   child: Text(
                                                     widget.snap['location'],
                                                     style: TextStyle(
@@ -215,66 +218,80 @@ class _PostState extends State<Post> {
                                                     1, // Adjust the height of the divider line
                                                 color: Colors
                                                     .black, // Adjust the color of the divider line
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal:
+                                                margin: EdgeInsets.only(
+                                                    top:
                                                         10), // Adjust the horizontal margin
                                               ),
                                               if (isCurrentUserPost)
-                                                 Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: TextButton.icon(
-                                                            onPressed: () {
-                                                              Features().deletePost(
-                                                                  widget.snap[
-                                                                      'postID']);
-                                                        
-                                                              Navigator.of(context)
-                                                                  .pop();
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.delete,
-                                                              color: Palette
-                                                                  .secondcolor,
-                                                            ),
-                                                            label: Text(
-                                                              'Delete Post',
-                                                              style: TextStyle(
-                                                                color: Palette
-                                                                    .secondcolor,
-                                                                fontFamily: 'Ale',
-                                                                fontSize: 18,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: TextButton.icon(
-                                                        onPressed: () {
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.edit_sharp,
-                                                          color: Palette
-                                                              .secondcolor,
-                                                        ),
-                                                        label: Text(
-                                                          'Edit Post',
-                                                          style: TextStyle(
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      top: 5, bottom: 5),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: TextButton.icon(
+                                                          onPressed: () {
+                                                            Features().deletePost(
+                                                                widget.snap[
+                                                                    'postID']);
+
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.delete,
                                                             color: Palette
                                                                 .secondcolor,
-                                                            fontFamily: 'Ale',
-                                                            fontSize: 18,
+                                                          ),
+                                                          label: Text(
+                                                            'Delete Post',
+                                                            style: TextStyle(
+                                                              color: Palette
+                                                                  .secondcolor,
+                                                              fontFamily: 'Ale',
+                                                              fontSize: 18,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                      ],
-                                                    ),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: TextButton.icon(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        EditPost(
+                                                                            postid:
+                                                                                widget.snap['postID'])));
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.edit_sharp,
+                                                            color: Palette
+                                                                .secondcolor,
+                                                          ),
+                                                          label: Text(
+                                                            'Edit Post',
+                                                            style: TextStyle(
+                                                              color: Palette
+                                                                  .secondcolor,
+                                                              fontFamily: 'Ale',
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                             ],
                                           ))
                                         ],

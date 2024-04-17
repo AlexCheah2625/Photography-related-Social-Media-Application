@@ -2,6 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Screens/comment_sections.dart';
+import 'package:practice/Screens/discover.dart';
+import 'package:practice/Screens/edit_post.dart';
 import 'package:practice/Screens/likes.dart';
 import 'package:practice/Screens/profile.dart';
 import 'package:practice/color.dart';
@@ -210,8 +212,8 @@ class _Post1State extends State<Post1> {
                                                   Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      margin:
-                                                          EdgeInsets.all(10.0),
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 10.0, top: 0),
                                                       child: Text(
                                                         widget.snap['location'],
                                                         style: TextStyle(
@@ -225,65 +227,89 @@ class _Post1State extends State<Post1> {
                                                       )),
                                                   Container(
                                                     width: 320,
-                                                    height:1, 
+                                                    height: 1,
                                                     color: Colors.black,
-                                                    margin: EdgeInsets.symmetric(horizontal:10), 
+                                                    margin: EdgeInsets.only(
+                                                        top: 10),
                                                   ),
                                                   if (isCurrentUserPost)
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: TextButton.icon(
-                                                            onPressed: () {
-                                                              Features().deletePost(
-                                                                  widget.snap[
-                                                                      'postID']);
-                                                        
-                                                              Navigator.of(context)
-                                                                  .pop();
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.delete,
-                                                              color: Palette
-                                                                  .secondcolor,
-                                                            ),
-                                                            label: Text(
-                                                              'Delete Post',
-                                                              style: TextStyle(
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 5, bottom: 5),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                TextButton.icon(
+                                                              onPressed: () {
+                                                                Features().deletePost(
+                                                                    widget.snap[
+                                                                        'postID']);
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              icon: Icon(
+                                                                Icons.delete,
                                                                 color: Palette
                                                                     .secondcolor,
-                                                                fontFamily: 'Ale',
-                                                                fontSize: 18,
+                                                              ),
+                                                              label: Text(
+                                                                'Delete Post',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Palette
+                                                                      .secondcolor,
+                                                                  fontFamily:
+                                                                      'Ale',
+                                                                  fontSize: 18,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: TextButton.icon(
-                                                        onPressed: () {
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.edit_sharp,
-                                                          color: Palette
-                                                              .secondcolor,
-                                                        ),
-                                                        label: Text(
-                                                          'Edit Post',
-                                                          style: TextStyle(
-                                                            color: Palette
-                                                                .secondcolor,
-                                                            fontFamily: 'Ale',
-                                                            fontSize: 18,
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                TextButton.icon(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .push(
+                                                                        MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      EditPost(
+                                                                          postid:
+                                                                              widget.snap['postID']),
+                                                                ));
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .edit_sharp,
+                                                                color: Palette
+                                                                    .secondcolor,
+                                                              ),
+                                                              label: Text(
+                                                                'Edit Post',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Palette
+                                                                      .secondcolor,
+                                                                  fontFamily:
+                                                                      'Ale',
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                      ],
                                                     ),
                                                 ],
                                               ))

@@ -1,52 +1,108 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_tflite/flutter_tflite.dart';
-import 'package:practice/color.dart';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:practice/models/users.dart';
+import 'package:practice/color.dart';
+import 'package:practice/resources/features.dart';
 import 'package:practice/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:practice/Providers/user_provider.dart';
+import 'package:practice/models/users.dart';
 import 'package:image/image.dart' as img;
-import 'package:practice/resources/features.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
-class AddPost extends StatefulWidget {
-  const AddPost({super.key});
+class EditPost extends StatefulWidget {
+  final String postid;
+  const EditPost({Key? key, required this.postid}) : super(key: key);
 
   @override
-  State<AddPost> createState() => _AddPostState();
+  State<EditPost> createState() => _EditPostState();
 }
 
-class _AddPostState extends State<AddPost> {
-  Uint8List? _postimage;
-  final TextEditingController _captioncontroller = TextEditingController();
-  final TextEditingController _isocontroller = TextEditingController();
-  final TextEditingController _apreturecontroller = TextEditingController();
-  final TextEditingController _shuttlespeedcontroller = TextEditingController();
-  final TextEditingController _locationcontroller = TextEditingController();
+class _EditPostState extends State<EditPost> {
+  late TextEditingController _captioncontroller = TextEditingController();
+  late TextEditingController _isocontroller = TextEditingController();
+  late TextEditingController _apreturecontroller = TextEditingController();
+  late TextEditingController _shuttlespeedcontroller = TextEditingController();
+  late TextEditingController _locationcontroller = TextEditingController();
   bool buttonvisible = true;
   double aspectRatio = 16 / 9;
   bool _Loading = false;
 
-  void selectedImg() async {
-    Uint8List file1 = await pickImage(
-      ImageSource.gallery,
-    );
-
-    setState(() {
-      _postimage = file1;
-      buttonvisible = false;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _captioncontroller = TextEditingController();
+    _isocontroller = TextEditingController();
+    _apreturecontroller = TextEditingController();
+    _shuttlespeedcontroller = TextEditingController();
+    _locationcontroller = TextEditingController();
+    getData();
+    calRatio();
   }
 
-  double calRatio() {
-    img.Image? image = img.decodeImage(_postimage!);
-    //get the image heigh and length and calculate the aspect ratio
-    double? imageAspectRatio = image?.width.toDouble();
-    double? imageAspectRatio1 = image?.height.toDouble();
-    double? imgratio = imageAspectRatio! / imageAspectRatio1!;
-    return imgratio;
+  Future<void> calRatio() async {
+    String imageURL = postdata["postUrl"].toString();
+    final res = await http.get(Uri.parse(imageURL));
+
+    if (res.statusCode == 200) {
+      Uint8List imageSize = res.bodyBytes;
+      img.Image? image = img.decodeImage(imageSize);
+      double? aspectRatio1 = image?.width.toDouble();
+      double? aspectRatio2 = image?.height.toDouble();
+      if (aspectRatio1 != null && aspectRatio2 != null && aspectRatio2 != 0) {
+        setState(() {
+          aspectRatio = aspectRatio1 / aspectRatio2;
+        });
+      }
+    }
+  }
+
+  var postdata = {};
+  getData() async {
+    if (mounted) {
+      setState(() {
+        _Loading = true;
+      });
+    }
+
+    try {
+      try {
+        var postsnap = await FirebaseFirestore.instance
+            .collection("posts")
+            .doc(widget.postid)
+            .get();
+        postdata = postsnap.data()!;
+
+        _captioncontroller.text = postdata['caption']?.toString() ?? '';
+        _isocontroller.text = postdata['iso']?.toString() ?? '';
+        _apreturecontroller.text = postdata['apreture']?.toString() ?? '';
+        _shuttlespeedcontroller.text =
+            postdata['shuttlespeed']?.toString() ?? '';
+        _locationcontroller.text = postdata['location']?.toString() ?? '';
+      } catch (e) {
+        if (mounted) {
+          showSnackBar(e.toString(), context);
+        }
+      }
+
+      if (mounted) {
+        setState(() {
+          _Loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(e.toString(), context);
+      }
+    }
+
+    if (mounted) {
+      setState(() {
+        _Loading = false;
+      });
+    }
   }
 
   @override
@@ -57,49 +113,6 @@ class _AddPostState extends State<AddPost> {
     _apreturecontroller.dispose();
     _locationcontroller.dispose();
     _shuttlespeedcontroller.dispose();
-    Tflite.close();
-  }
-
-  void clearImage() {
-    setState(() {
-      _postimage = null;
-    });
-  }
-
-  void postPhoto(String uid, String username, String profilepic) async {
-    setState(() {
-      _Loading = true;
-    });
-    try {
-      String result = await Features().uploadPost(
-          _captioncontroller.text,
-          _postimage!,
-          uid,
-          username,
-          profilepic,
-          _apreturecontroller.text,
-          _isocontroller.text,
-          _shuttlespeedcontroller.text,
-          _locationcontroller.text);
-
-      if (result == "Successfully created post") {
-        setState(() {
-          _Loading = false;
-        });
-        showSnackBar("Your post has been successfully uploaded", context);
-        clearImage();
-      } else {
-        showSnackBar(result, context);
-        setState(() {
-          _Loading = false;
-        });
-      }
-    } catch (e) {
-      showSnackBar(e.toString(), context);
-      setState(() {
-        _Loading = false;
-      });
-    }
   }
 
   @override
@@ -112,7 +125,7 @@ class _AddPostState extends State<AddPost> {
           toolbarHeight: 50,
           backgroundColor: Palette.postcolor,
           title: Text(
-            'Create  Post',
+            'Edit  Post',
             style: TextStyle(
                 fontSize: 24,
                 color: Palette.thirdcolor,
@@ -124,9 +137,24 @@ class _AddPostState extends State<AddPost> {
           floating: true,
           actions: [
             TextButton(
-                onPressed: () =>
-                    postPhoto(user.uid, user.username, user.profilepic),
-                child: Text('Post',
+                onPressed: () {
+                  Features().editPost(
+                      widget.postid,
+                      _captioncontroller.text,
+                      _isocontroller.text,
+                      _apreturecontroller.text,
+                      _shuttlespeedcontroller.text,
+                      _locationcontroller.text);
+                  Navigator.of(context).pop();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Post updated successfully'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: Text('Save',
                     style: TextStyle(
                         fontSize: 18,
                         color: Palette.secondcolor,
@@ -144,7 +172,7 @@ class _AddPostState extends State<AddPost> {
                 decoration: BoxDecoration(
                   color: Palette.postcolor,
                   border: Border.all(
-                    color: const Color.fromARGB(255, 194, 194, 194),
+                    color: Color.fromARGB(255, 194, 194, 194),
                   ),
                 ),
                 child: Row(
@@ -180,32 +208,12 @@ class _AddPostState extends State<AddPost> {
                   ),
                 ),
                 height: 365,
-                child: Stack(
-                  children: [
-                    _postimage != null
-                        ? AspectRatio(
-                            aspectRatio: calRatio(),
-                            child: Image(image: MemoryImage(_postimage!)),
-                          )
-                        : Visibility(
-                            visible: buttonvisible,
-                            child: Positioned(
-                              left: 150,
-                              top: 170,
-                              child: TextButton(
-                                child: Text(
-                                  "Select Photo",
-                                  style: TextStyle(
-                                    color: Palette.thirdcolor,
-                                    fontFamily: "Ale",
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                onPressed: selectedImg,
-                              ),
-                            ),
-                          ),
-                  ],
+                child: SizedBox(
+                  width: double.infinity,
+                  child: AspectRatio(
+                    aspectRatio: aspectRatio,
+                    child: Image.network(postdata['postUrl'].toString()),
+                  ),
                 ),
               ),
               Container(
@@ -334,43 +342,6 @@ class _AddPostState extends State<AddPost> {
                   controller: _shuttlespeedcontroller,
                   maxLines: 8,
                   onChanged: (String value) {},
-                ),
-              ),
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Palette.postcolor,
-                  border: Border.all(
-                    color: Color.fromARGB(255, 194, 194, 194),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        "Select Camera",
-                        style: TextStyle(
-                          fontFamily: "Ale",
-                          fontSize: 16,
-                          color: Palette.thirdcolor,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 3),
-                      child: IconButton(
-                        onPressed: () async {
-                          Uint8List file = await pickImage(ImageSource.camera);
-                          setState(() {
-                            _postimage = file;
-                          });
-                        },
-                        icon: Icon(Icons.camera_alt_sharp),
-                        iconSize: 20,
-                      ),
-                    )
-                  ],
                 ),
               ),
             ],
