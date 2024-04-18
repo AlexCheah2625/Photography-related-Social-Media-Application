@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:practice/color.dart';
 import 'package:practice/resources/auth.dart';
-
 import '../utils/utils.dart';
 
 class EditProfile extends StatefulWidget {
@@ -225,7 +224,7 @@ class _EditProfileState extends State<EditProfile> {
                               // Wrap the Text widget in Flexible
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.55,
-                                height: 32,
+                                // height: 32,
                                 child: TextFormField(
                                   textAlign: TextAlign.start,
                                   keyboardType: TextInputType.text,
@@ -287,7 +286,6 @@ class _EditProfileState extends State<EditProfile> {
                             margin: const EdgeInsets.only(top: 20),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,
-                              height: 32,
                               child: TextFormField(
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.text,
@@ -343,7 +341,7 @@ class _EditProfileState extends State<EditProfile> {
                             margin: const EdgeInsets.only(top: 20),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.55,
-                              height: 32,
+                              // height: 32,
                               child: TextFormField(
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.number,
@@ -377,6 +375,32 @@ class _EditProfileState extends State<EditProfile> {
                   height: 42,
                   child: ElevatedButton(
                     onPressed: () {
+                      if(_usernameController.text.isEmpty){
+                         ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please Enter Your Name'),
+                          duration: Duration(
+                              seconds: 2), 
+                        ),
+                      );
+                      }else if(_bioController.text.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please Enter Your Bio'),
+                          duration: Duration(
+                              seconds: 2), 
+                        ),
+                      );
+                      }else if(_ageController.text.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please Enter Your Age'),
+                          duration: Duration(
+                              seconds: 2), 
+                        ),
+                      );
+                      }
+                      else{
                       Features().editProfile(
                           _image!,
                           _usernameController.text,
@@ -388,11 +412,12 @@ class _EditProfileState extends State<EditProfile> {
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Profile updated successfully'),
+                          content: Text('Profile Updated Successfully'),
                           duration: Duration(
-                              seconds: 2), // Adjust the duration as needed
+                              seconds: 2), 
                         ),
                       );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFDADADA),

@@ -3,6 +3,7 @@ import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/services.dart';
 import 'package:practice/Providers/user_provider.dart';
 import 'package:practice/color.dart';
+import 'package:practice/resources/message_service.dart';
 import 'package:practice/responsive/things2.dart';
 import 'Login and Signup/things.dart';
 import 'responsive/things1.dart';
@@ -18,6 +19,7 @@ void main() async {
   );
   await Firebase.initializeApp();
   runApp(Xenon());
+  PushNotificationService().initialize();
 }
 
 class Xenon extends StatelessWidget {

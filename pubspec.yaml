@@ -47,6 +47,7 @@ dependencies:
   expandable_text: ^2.3.0
   cron: ^0.6.0
   shared_preferences: ^2.2.2
+  firebase_messaging: ^14.7.10
 
 flutter_native_splash:
   android: true
@@ -62,6 +63,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   provider: ^6.0.5
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

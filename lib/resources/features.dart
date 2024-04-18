@@ -184,18 +184,14 @@ class Features {
       String age, String uid) async {
     try {
       if (username.isNotEmpty || age.isNotEmpty || bio.isNotEmpty) {
-        // Check if a new profile picture is provided
         String? photoURL;
         if (file1 != null) {
-          // Upload the new profile picture to storage and get the download URL
           photoURL = await Storage()
               .uploadPictoStorage('profilepictures', file1, false);
         }
 
-        // Create a map to hold the fields to be updated
         Map<String, dynamic> updateFields = {};
 
-        // Add fields to the map if they are not empty
         if (username.isNotEmpty) {
           updateFields['username'] = username;
         }
