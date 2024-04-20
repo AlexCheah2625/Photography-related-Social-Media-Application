@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Providers/user_provider.dart';
 import 'package:practice/Screens/profile.dart';
@@ -7,18 +8,20 @@ import 'package:practice/Widgets/chatuser_card.dart';
 import 'package:practice/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:practice/models/users.dart';
+import 'package:practice/resources/chatservice.dart';
+import 'package:practice/resources/local_notification.dart';
 import 'package:practice/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
-
   @override
   State<Chat> createState() => _ChatState();
 }
 
 class _ChatState extends State<Chat> {
   final TextEditingController searchUser = TextEditingController();
+  final LocalNotification localnoti = LocalNotification();
   bool showUser = false;
   bool loading = false;
   List<String> documentIds = [];
@@ -35,6 +38,7 @@ class _ChatState extends State<Chat> {
     super.dispose();
     searchUser.dispose();
   }
+
 
   Future<Object?> getPostDataByPostUrl(String postUrl) async {
     // Query the Firestore collection to get the document containing the postUrl

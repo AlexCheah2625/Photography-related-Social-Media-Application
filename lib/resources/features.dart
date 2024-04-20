@@ -6,12 +6,14 @@ import 'package:practice/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:practice/models/users.dart';
 import 'package:practice/resources/storage.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Features {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -255,6 +257,18 @@ class Features {
             .doc(postID)
             .update(updateFields);
       }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  
+  Future<void> AddTokenUser(String token) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentReference userRef =
+          FirebaseFirestore.instance.collection('users').doc(uid);
+      await userRef.update({'token': token});
+      print("Token added");
     } catch (e) {
       print(e.toString());
     }

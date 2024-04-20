@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Providers/user_provider.dart';
@@ -15,7 +16,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Chatting extends StatefulWidget {
   final String uid;
   const Chatting({Key? key, required this.uid});
-
   @override
   State<Chatting> createState() => _ChattingState();
 }

@@ -46,6 +46,7 @@ class AuthMethods {
         String photoURL =
             await Storage().uploadPictoStorage('profilepictures', file, false);
 
+        
         model.Users user = model.Users(
           username: username,
           uid: cred.user!.uid,

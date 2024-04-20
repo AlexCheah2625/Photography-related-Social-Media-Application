@@ -55,7 +55,7 @@ class _DiscoverState extends State<Discover> {
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.035,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.785,
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Search Users',
@@ -159,7 +159,7 @@ class _DiscoverState extends State<Discover> {
                             },
                             style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all<Size>(
-                                  Size(105.0, 20.0)),
+                                  Size(106.0, 20.0)),
                               backgroundColor:
                                   MaterialStateProperty.all(Palette.postcolor),
                               shape: MaterialStateProperty.all(
@@ -256,7 +256,7 @@ class _DiscoverState extends State<Discover> {
                       child: FutureBuilder(
                         future: FirebaseFirestore.instance
                             .collection('posts')
-                            .orderBy('date',descending: true)
+                            .orderBy('date', descending: true)
                             .get(),
                         builder: ((context, snapshot) {
                           if (!snapshot.hasData) {

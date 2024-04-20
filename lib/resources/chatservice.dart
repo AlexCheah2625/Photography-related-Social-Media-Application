@@ -1,9 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:practice/Providers/user_provider.dart';
+import 'package:practice/Screens/chat_page.dart';
 import 'package:practice/models/message.dart';
 import 'package:practice/models/users.dart';
+import 'package:practice/resources/local_notification.dart';
+import 'package:practice/resources/message_service.dart';
 
 class ChatService extends ChangeNotifier {
 //get instance of auth and firestore
@@ -22,7 +31,7 @@ class ChatService extends ChangeNotifier {
 
     String senderName = await getcurrentuserName(currentuserid);
 
-    Message newMessage = Message(
+    Messages newMessage = Messages(
         senderID: currentuserid,
         receiverID: receiverID,
         senderEmail: currentuseremail,
@@ -46,6 +55,16 @@ class ChatService extends ChangeNotifier {
       'currentuserID': currentuserid,
       // Add more fields as needed
     });
+
+    DocumentSnapshot receivertoken = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverID)
+        .get();
+
+    String ReceiverToken = receivertoken.get('token');
+
+    PushNotificationService()
+        .sendPushNotification(senderName, message, ReceiverToken);
   }
 
   //receive message
