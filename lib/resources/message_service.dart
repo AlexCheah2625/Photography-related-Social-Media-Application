@@ -30,7 +30,7 @@ class PushNotificationService {
 
   void handlemessage(RemoteMessage? message) {
     if (message == null) return;
-    navigatorKey.currentState?.pushNamed('/chat_page', arguments: message);
+    navigatorKey.currentState?.pushNamed('/chat_page');
   }
 
   Future initPushNotification() async {
@@ -61,8 +61,8 @@ class PushNotificationService {
     });
   }
 
-  void sendPushNotification(
-      String senderName, String message, String ReceiverToken) async {
+  void sendPushNotification(String senderName, String message,
+      String ReceiverToken, String receiverID) async {
     String serverkey =
         "AAAAlKMeWXM:APA91bE5DF2l5fkTM7ZQKgU71WGx-ssVsvFxRAKHKdsIKzA_NInnwGuyK982GCEr-eYBILXlNXwsIZ5qb8bNKp6iVNWUjQ-WHCXnYlYR2z_OilE50Nrr1oeKodatz3WcAHvUFmBlAYCh";
     final Map<String, dynamic> data = {
@@ -70,9 +70,7 @@ class PushNotificationService {
         'title': "$senderName has messaged you",
         'body': message,
       },
-      'data': {
-        'foreground': true,
-      },
+      'data': {'foreground': true},
       'to': ReceiverToken,
     };
 

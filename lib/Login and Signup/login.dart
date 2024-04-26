@@ -40,15 +40,17 @@ class _LoginState extends State<Login> {
         builder: (context) => const Responsive(
             mobileBody: MobileLayout(), desktopBody: WebLayout()),
       ));
+    } else if (res == "UserNotFound") {
+      setState(() {
+        _Loading = false;
+      });
+      showSnackBar("User not found. Please register an account.", context);
     } else {
       setState(() {
         _Loading = false;
       });
       showSnackBar(res, context);
     }
-    setState(() {
-      _Loading = false;
-    });
   }
 
   @override
@@ -202,11 +204,10 @@ class _LoginState extends State<Login> {
                                     textStyle: const TextStyle(fontSize: 12),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context)
-                                                  .push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const ForgetPassword()));
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ForgetPassword()));
                                   },
                                   child: Container(
                                     alignment: Alignment.topRight,

@@ -25,7 +25,7 @@ class _ISO_SearchState extends State<ISO_Search> {
     searchPosts.dispose();
   }
 
-    Future<Object?> getPostDataByPostUrl(String postUrl) async {
+  Future<Object?> getPostDataByPostUrl(String postUrl) async {
     // Query the Firestore collection to get the document containing the postUrl
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('posts')
@@ -43,7 +43,7 @@ class _ISO_SearchState extends State<ISO_Search> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF213037),
           iconTheme: IconThemeData(color: Palette.postcolor),
@@ -74,7 +74,7 @@ class _ISO_SearchState extends State<ISO_Search> {
             ),
           ),
         ),
-        body:  showPosts
+        body: showPosts
             ? FutureBuilder(
                 future: FirebaseFirestore.instance
                     .collection('posts')
@@ -119,158 +119,169 @@ class _ISO_SearchState extends State<ISO_Search> {
                   );
                 },
               )
-            :Container(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            : Container(
+                child: Column(
                   children: [
-                    Container(
-                        child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Aperture_Search()),
-                        );
-                      },
-                      style: ButtonStyle(
-                        fixedSize:
-                            MaterialStateProperty.all<Size>(Size(100.0, 20.0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Palette.postcolor),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.white10))),
+                    Expanded(
+                      flex: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Aperture_Search()),
+                              );
+                            },
+                            style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(100.0, 20.0)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.postcolor),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white10))),
+                            ),
+                            child: Text("Aperture",
+                                style: TextStyle(
+                                    fontFamily: 'Ale',
+                                    fontSize: 12,
+                                    color: Palette.thirdcolor)),
+                          )),
+                          Container(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PostSearch()),
+                              );
+                            },
+                            style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(92.0, 10.0)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.postcolor),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white10))),
+                            ),
+                            child: Text("Caption",
+                                style: TextStyle(
+                                    fontFamily: 'Ale',
+                                    fontSize: 12,
+                                    color: Palette.thirdcolor)),
+                          )),
+                          Container(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Location_Search()),
+                              );
+                            },
+                            style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(96.0, 10.0)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.postcolor),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white10))),
+                            ),
+                            child: Text("Location",
+                                style: TextStyle(
+                                    fontFamily: 'Ale',
+                                    fontSize: 12,
+                                    color: Palette.thirdcolor)),
+                          )),
+                          Container(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Shuttle_Search()),
+                              );
+                            },
+                            style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(93.0, 10.0)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Palette.postcolor),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white10))),
+                            ),
+                            child: Text("Shuttle\nSpeed",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'Ale',
+                                    fontSize: 12,
+                                    color: Palette.thirdcolor)),
+                          )),
+                        ],
                       ),
-                      child: Text("Aperture",
-                          style: TextStyle(
-                              fontFamily: 'Ale',
-                              fontSize: 12,
-                              color: Palette.thirdcolor)),
-                    )),
-                    Container(
-                        child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PostSearch()),
-                        );
-                      },
-                      style: ButtonStyle(
-                        fixedSize:
-                            MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Palette.postcolor),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.white10))),
-                      ),
-                      child: Text("Caption",
-                          style: TextStyle(
-                              fontFamily: 'Ale',
-                              fontSize: 12,
-                              color: Palette.thirdcolor)),
-                    )),
-                    Container(
-                        child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Location_Search()),
-                        );
-                      },
-                      style: ButtonStyle(
-                        fixedSize:
-                            MaterialStateProperty.all<Size>(Size(95.0, 10.0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Palette.postcolor),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.white10))),
-                      ),
-                      child: Text("Location",
-                          style: TextStyle(
-                              fontFamily: 'Ale',
-                              fontSize: 12,
-                              color: Palette.thirdcolor)),
-                    )),
-                    Container(
-                        child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Shuttle_Search()),
-                        );
-                      },
-                      style: ButtonStyle(
-                        fixedSize:
-                            MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Palette.postcolor),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.white10))),
-                      ),
-                      child: Text("Shuttle Speed",
-                          style: TextStyle(
-                              fontFamily: 'Ale',
-                              fontSize: 12,
-                              color: Palette.thirdcolor)),
-                    )),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: FutureBuilder(
-                  future:
-                          FirebaseFirestore.instance.collection('posts').get(),
-                      builder: ((context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                        return StaggeredGridView.countBuilder(
-                            crossAxisCount: 2,
-                            itemCount: (snapshot.data! as dynamic).docs.length,
-                            itemBuilder: (context, index) => Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: GestureDetector(
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Post1(
-                                                snap:
-                                                    (snapshot.data! as dynamic)
-                                                        .docs[index]
-                                                        .data()),
-                                          ),
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                            (snapshot.data! as dynamic)
-                                                .docs[index]['postUrl']),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .collection('posts')
+                            .get(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          return StaggeredGridView.countBuilder(
+                              crossAxisCount: 2,
+                              itemCount:
+                                  (snapshot.data! as dynamic).docs.length,
+                              itemBuilder: (context, index) => Container(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: GestureDetector(
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Post1(
+                                                  snap: (snapshot.data!
+                                                          as dynamic)
+                                                      .docs[index]
+                                                      .data()),
+                                            ),
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                              (snapshot.data! as dynamic)
+                                                  .docs[index]['postUrl']),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                            staggeredTileBuilder: (index) =>
-                                const StaggeredTile.fit(1));
-                      }),
-                    ),
-                  )
-            ],
-          ),
-        ));
+                              staggeredTileBuilder: (index) =>
+                                  const StaggeredTile.fit(1));
+                        }),
+                      ),
+                    )
+                  ],
+                ),
+              ));
   }
 }

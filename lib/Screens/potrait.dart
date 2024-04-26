@@ -51,7 +51,7 @@ class _potraitState extends State<potrait> {
                       },
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all<Size>(Size(105.0, 20.0)),
+                            MaterialStateProperty.all<Size>(Size(106.0, 20.0)),
                         backgroundColor:
                             MaterialStateProperty.all(Palette.postcolor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

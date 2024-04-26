@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Screens/comment_sections.dart';
+import 'package:practice/Screens/edit_post.dart';
 import 'package:practice/Screens/likes.dart';
 import 'package:practice/Screens/profile.dart';
 import 'package:practice/color.dart';
@@ -128,7 +129,7 @@ class _Post2State extends State<Post2> {
                                 context: context,
                                 builder: (context) => Dialog(
                                       child: Container(
-                                          height: 350,
+                                          height: isCurrentUserPost ? 360 : 300,
                                           child: Column(
                                             children: [
                                               Container(
@@ -223,45 +224,92 @@ class _Post2State extends State<Post2> {
                                                               FontWeight.w400,
                                                         ),
                                                       )),
-                                                  Container(
-                                                    width: 320,
-                                                    height:
-                                                        1, // Adjust the height of the divider line
-                                                    color: Colors
-                                                        .black, // Adjust the color of the divider line
-                                                    margin: EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            10), // Adjust the horizontal margin
-                                                  ),
                                                   if (isCurrentUserPost)
                                                     Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: TextButton.icon(
-                                                        onPressed: () {
-                                                          Features().deletePost(
-                                                              widget.snap[
-                                                                  'postID']);
-
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.delete,
-                                                          color: Palette
-                                                              .secondcolor,
-                                                        ),
-                                                        label: Text(
-                                                          'Delete Post',
-                                                          style: TextStyle(
-                                                            color: Palette
-                                                                .secondcolor,
-                                                            fontFamily: 'Ale',
-                                                            fontSize: 18,
+                                                      height: 70,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            width: 320,
+                                                            height:
+                                                                1, // Adjust the height of the divider line
+                                                            color: Colors
+                                                                .black, // Adjust the color of the divider line
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        10), // Adjust the horizontal margin
                                                           ),
-                                                        ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                TextButton.icon(
+                                                              onPressed: () {
+                                                                Features().deletePost(
+                                                                    widget.snap[
+                                                                        'postID']);
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              icon: Icon(
+                                                                Icons.delete,
+                                                                color: Palette
+                                                                    .secondcolor,
+                                                              ),
+                                                              label: Text(
+                                                                'Delete Post',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Palette
+                                                                      .secondcolor,
+                                                                  fontFamily:
+                                                                      'Ale',
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                TextButton.icon(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .push(
+                                                                        MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      EditPost(
+                                                                          postid:
+                                                                              widget.snap['postID']),
+                                                                ));
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .edit_sharp,
+                                                                color: Palette
+                                                                    .secondcolor,
+                                                              ),
+                                                              label: Text(
+                                                                'Edit Post',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Palette
+                                                                      .secondcolor,
+                                                                  fontFamily:
+                                                                      'Ale',
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
+                                                    )
                                                 ],
                                               ))
                                             ],
@@ -418,7 +466,7 @@ class _Post2State extends State<Post2> {
                               Features().DownloadImage(widget.snap['postID']);
                             },
                             icon: Icon(
-                              Icons.send,
+                              Icons.download_sharp,
                               size: 22,
                             )),
                       ),

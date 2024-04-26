@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ import 'weblayout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:provider/provider.dart';
+
 
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -71,7 +73,7 @@ class Xenon extends StatelessWidget {
           },
         ),
         navigatorKey: navigatorKey,
-        routes: {'/chat_page': (context) => const Chat()},
+        routes: {'/chat_page': (context) =>  Chat()},
       ),
     );
   }

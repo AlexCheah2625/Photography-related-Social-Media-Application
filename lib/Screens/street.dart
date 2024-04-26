@@ -51,7 +51,7 @@ class _streetState extends State<street> {
                       },
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all<Size>(Size(105.0, 20.0)),
+                            MaterialStateProperty.all<Size>(Size(106.0, 20.0)),
                         backgroundColor:
                             MaterialStateProperty.all(Palette.postcolor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -66,11 +66,13 @@ class _streetState extends State<street> {
                     )),
                     Container(
                         child: ElevatedButton(
-                      onPressed: () { Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const street()),
-                              );},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const street()),
+                        );
+                      },
                       style: ButtonStyle(
                         fixedSize:
                             MaterialStateProperty.all<Size>(Size(87.0, 10.0)),
@@ -88,11 +90,13 @@ class _streetState extends State<street> {
                     )),
                     Container(
                         child: ElevatedButton(
-                      onPressed: () { Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const potrait()),
-                              );},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const potrait()),
+                        );
+                      },
                       style: ButtonStyle(
                         fixedSize:
                             MaterialStateProperty.all<Size>(Size(90.0, 10.0)),
@@ -110,11 +114,13 @@ class _streetState extends State<street> {
                     )),
                     Container(
                         child: ElevatedButton(
-                      onPressed: () { Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const sport()),
-                              );},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const sport()),
+                        );
+                      },
                       style: ButtonStyle(
                         fixedSize:
                             MaterialStateProperty.all<Size>(Size(87.0, 10.0)),

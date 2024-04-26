@@ -112,10 +112,15 @@ class _ChattingState extends State<Chatting> {
               return const Text("Loading...");
             }
 
-            return ListView(
-              children: snapshot.data!.docs
-                  .map((document) => _buildMessageItem(document))
-                  .toList(),
+            List<DocumentSnapshot> reversedMessages =
+                snapshot.data!.docs.reversed.toList();
+
+            return ListView.builder(
+              reverse:true, 
+              itemCount: reversedMessages.length,
+              itemBuilder: (context, index) {
+                return _buildMessageItem(reversedMessages[index]);
+              },
             );
           },
         ))

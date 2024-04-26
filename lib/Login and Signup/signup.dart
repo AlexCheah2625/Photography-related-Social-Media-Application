@@ -46,6 +46,28 @@ class _SignUpState extends State<SignUp> {
       _loading = true;
     });
 
+    // Check if profile picture is provided
+    if (_image == null) {
+      setState(() {
+        _loading = false;
+      });
+      showSnackBar("Please add a profile picture.", context);
+      return; // Exit function early
+    }
+
+    if (_emailController.text.isEmpty ||
+        _usernameController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _ageController.text.isEmpty ||
+        _genders.isEmpty ||
+        _bioController.text.isEmpty) {
+      setState(() {
+        _loading = false;
+      });
+      showSnackBar("Please fill in all fields.", context);
+      return; // Exit function early
+    }
+
     String res = await AuthMethods().signUpUser(
       email: _emailController.text,
       username: _usernameController.text,
@@ -63,8 +85,8 @@ class _SignUpState extends State<SignUp> {
     if (res != 'success') {
       showSnackBar(res, context);
     } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => Login()));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
     }
   }
 
@@ -88,11 +110,10 @@ class _SignUpState extends State<SignUp> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          height:MediaQuery.of(context).size.height*1.2 ,
+          height: MediaQuery.of(context).size.height * 1.2,
           child: SingleChildScrollView(
-            physics:const ClampingScrollPhysics(),
-            child: Column(
-              children: [
+            physics: const ClampingScrollPhysics(),
+            child: Column(children: [
               //Logo
               Container(
                   margin: EdgeInsets.only(top: 100),
@@ -188,7 +209,8 @@ class _SignUpState extends State<SignUp> {
                               padding: const EdgeInsets.only(left: 46),
                               margin: const EdgeInsets.only(top: 10),
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width*0.019,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.019,
                                 child: const Text(
                                   ":",
                                   style: TextStyle(
@@ -203,7 +225,7 @@ class _SignUpState extends State<SignUp> {
                               padding: const EdgeInsets.only(left: 5),
                               margin: const EdgeInsets.only(top: 10),
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width*0.55,
+                                width: MediaQuery.of(context).size.width * 0.55,
                                 height: 32,
                                 child: TextFormField(
                                   textAlign: TextAlign.start,
@@ -248,7 +270,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 1),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.019,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.019,
                                   child: const Text(
                                     ":",
                                     style: TextStyle(
@@ -263,7 +286,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 5),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.55,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
                                   height: 32,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
@@ -309,7 +333,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 73),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.017,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.017,
                                   child: const Text(
                                     ":",
                                     style: TextStyle(
@@ -324,7 +349,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 5),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.55,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
                                   height: 32,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
@@ -380,7 +406,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 5),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.55,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
                                   height: 32,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
@@ -500,7 +527,8 @@ class _SignUpState extends State<SignUp> {
                                 padding: const EdgeInsets.only(left: 5),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width*0.55,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.55,
                                   height: 32,
                                   child: TextFormField(
                                     obscureText: true,

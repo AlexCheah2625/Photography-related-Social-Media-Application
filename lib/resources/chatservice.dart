@@ -64,7 +64,7 @@ class ChatService extends ChangeNotifier {
     String ReceiverToken = receivertoken.get('token');
 
     PushNotificationService()
-        .sendPushNotification(senderName, message, ReceiverToken);
+        .sendPushNotification(senderName, message, ReceiverToken,receiverID);
   }
 
   //receive message
