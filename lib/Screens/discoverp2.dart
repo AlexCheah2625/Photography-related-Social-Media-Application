@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:intl/intl.dart';
 import 'package:practice/Screens/comment_sections.dart';
 import 'package:practice/Screens/discover.dart';
@@ -354,7 +355,9 @@ class _Post1State extends State<Post1> {
                     width: double.infinity,
                     child: AspectRatio(
                       aspectRatio: aspectRatio,
-                      child: Image.network(widget.snap['postUrl'].toString()),
+                      child: InstaImageViewer(
+                          child:
+                              Image.network(widget.snap['postUrl'].toString())),
                     ),
                   ),
                   AnimatedOpacity(

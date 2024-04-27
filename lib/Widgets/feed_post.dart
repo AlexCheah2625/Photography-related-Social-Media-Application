@@ -15,6 +15,7 @@ import 'like_animation.dart';
 import 'package:provider/provider.dart';
 import 'package:practice/Widgets/like_animation.dart';
 import 'package:practice/resources/features.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 
 class Post extends StatefulWidget {
   final snap;
@@ -329,7 +330,8 @@ class _PostState extends State<Post> {
                 width: double.infinity,
                 child: AspectRatio(
                   aspectRatio: aspectRatio,
-                  child: Image.network(widget.snap['postUrl'].toString()),
+                  child: InstaImageViewer(
+                      child: Image.network(widget.snap['postUrl'].toString())),
                 ),
               ),
               AnimatedOpacity(
