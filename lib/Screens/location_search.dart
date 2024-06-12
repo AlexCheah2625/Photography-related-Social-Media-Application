@@ -78,7 +78,7 @@ class _Location_SearchState extends State<Location_Search> {
             ? FutureBuilder(
                 future: FirebaseFirestore.instance
                     .collection('posts')
-                    .where('location', isGreaterThanOrEqualTo: searchPosts.text)
+                    .where('location', isEqualTo: searchPosts.text)
                     .get(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
